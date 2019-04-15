@@ -1,10 +1,34 @@
 import csv
 
-def find_seeds(species_abbrev, domain ,seeds):
-    with open("seeds.dat", "w") as outfile:
-        for s in seeds[0]:
-            outfile.write(s + " ",)
+#Find seeds within each domain
+def domain_seeds(seeds, domain, d):
+    d_seeds = []
+    #loop through all seeds
+    for i in range(len(seeds)):
+        #if a seed is from a particular domain
+        if domain[i] == d:
+            for s in seeds[i]:
+                #make sure it is not already in overall seed set
+                if s not in d_seeds:
+                    #append to seed set for that particular domain
+                    d_seeds.append(s)
+    return (d_seeds)
 
+#General function to return seeds
+def find_seeds(species_abbrev, domain ,seeds):
+    #list of all seeds (no repeats)
+    all_seeds = []
+    with open("all_seeds.dat", "w") as outfile:
+        for s in seeds:
+            for c in s:
+                if c not in all_seeds:
+                    all_seeds.append(c)
+                #all seeds written to a file
+                outfile.write(c + " ",)
+            outfile.write("\n")
+
+    #bacteria seeds (nonoverlapping)
+    return all_seeds, domain_seeds(seeds, domain, "Bacteria"), domain_seeds(seeds, domain, "Archaea"),domain_seeds(seeds, domain, "Animals")
 
 def file_analysis():
     #list species abbreviations and domains
@@ -31,9 +55,19 @@ def file_analysis():
             lc += 1
         return species_abbrev, domain, seeds
 
+def write_files(seeds, name):
+    with open(name, "w") as outfile:
+        for s in seeds:
+            outfile.write(s + " ",)
+
 def main():
     species_abbrev, domain, seeds = file_analysis()
-    find_seeds(species_abbrev, domain ,seeds)
+    #seeds for bacteria, archaea, and eukaroya domains
+    all_seeds, b_seeds, a_seeds, e_seeds = find_seeds(species_abbrev, domain ,seeds)
+    write_files(all_seeds, "all.txt")
+    write_files(b_seeds, "bacteria.txt")
+    write_files(a_seeds, "archaea.txt")
+    write_files(e_seeds, "animals.txt")
 
 if __name__ == "__main__":
     main()
