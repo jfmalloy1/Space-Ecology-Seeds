@@ -60,6 +60,9 @@ def write_files(seeds, name):
         for s in seeds:
             outfile.write(s + " ",)
 
+def prep_netexp(seeds):
+    return
+
 def main():
     species_abbrev, domain, seeds = file_analysis()
     #seeds for bacteria, archaea, and eukaroya domains
@@ -68,6 +71,10 @@ def main():
     write_files(b_seeds, "bacteria.txt")
     write_files(a_seeds, "archaea.txt")
     write_files(e_seeds, "animals.txt")
+
+    #make seed sets (6 organisms - randomly select two from each domain)
+    
+
 
 if __name__ == "__main__":
     main()
