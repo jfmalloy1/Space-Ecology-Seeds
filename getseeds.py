@@ -18,7 +18,7 @@ def domain_seeds(seeds, domain, d):
 def find_seeds(species_abbrev, domain ,seeds):
     #list of all seeds (no repeats)
     all_seeds = []
-    with open("all_seeds.dat", "w") as outfile:
+    with open("all_seeds.txt", "w") as outfile:
         for s in seeds:
             for c in s:
                 if c not in all_seeds:
@@ -64,7 +64,7 @@ def main():
     species_abbrev, domain, seeds = file_analysis()
     #seeds for bacteria, archaea, and eukaroya domains
     all_seeds, b_seeds, a_seeds, e_seeds = find_seeds(species_abbrev, domain ,seeds)
-    write_files(all_seeds, "all.txt")
+    write_files(all_seeds, "all_compounds.txt")
     write_files(b_seeds, "bacteria.txt")
     write_files(a_seeds, "archaea.txt")
     write_files(e_seeds, "animals.txt")
