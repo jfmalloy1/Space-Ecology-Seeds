@@ -57,23 +57,34 @@ def file_analysis():
 
 def write_files(seeds, name):
     with open(name, "w") as outfile:
+        #used for all seeds
         for s in seeds:
             outfile.write(s + " ",)
 
+def write_netexp(name, seeds):
+    with open(name, "w") as outfile:
+        for s in seeds:
+            print(s + " ", end="", file=outfile)
+
 def prep_netexp(seeds):
-    return
+    write_netexp("human.dat", seeds[0])
+    write_netexp("danio.dat", seeds[10])
+    write_netexp("Dictyostelium.dat", seeds[22])
+    write_netexp("Photorhabdus.dat", seeds[57])
+    write_netexp("Pyrobaculum.dat", seeds[474])
+    write_netexp("Methanococcoides.data", seeds[450])
 
 def main():
     species_abbrev, domain, seeds = file_analysis()
     #seeds for bacteria, archaea, and eukaroya domains
     all_seeds, b_seeds, a_seeds, e_seeds = find_seeds(species_abbrev, domain ,seeds)
-    write_files(all_seeds, "all_compounds.txt")
-    write_files(b_seeds, "bacteria.txt")
-    write_files(a_seeds, "archaea.txt")
-    write_files(e_seeds, "animals.txt")
+    # write_files(all_seeds, "all_compounds.txt")
+    # write_files(b_seeds, "bacteria.txt")
+    # write_files(a_seeds, "archaea.txt")
+    # write_files(e_seeds, "animals.txt")
 
     #make seed sets (6 organisms - randomly select two from each domain)
-    
+    prep_netexp(seeds)
 
 
 if __name__ == "__main__":
